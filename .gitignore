@@ -1,6 +1,16 @@
-/lessons/*
-!/lessons/lessons01.txt
-!/lessons/lessons02.txt
-/.env
-/langgraph_weaviate*
-/test.ipynb
+# Lessons (include only specific lessons)
+lessons/*
+!lessons/lesson_01.txt
+!lessons/lesson_02.txt
+
+# Environment
+.env
+
+# Database files
+langgraph_weaviate*
+
+# Notebooks
+test.ipynb
+
+# VSCode
+.vscode/
