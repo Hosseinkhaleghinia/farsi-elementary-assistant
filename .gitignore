@@ -1,0 +1,6 @@
+/lessons/*
+!/lessons/lessons01.txt
+!/lessons/lessons02.txt
+/.env
+/langgraph_weaviate*
+/test.ipynb
