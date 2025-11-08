@@ -12,8 +12,6 @@
 
 ## 📖 Overview
 
-**Farsi Elementary Assistant** (دستیار آموزشی هوشمند) است که برای کمک به دانش‌آموزان دوره ابتدایی در یادگیری درس فارسی طراحی شده است. این سیستم با استفاده از RAG (Retrieval-Augmented Generation)، جستجوی معنایی هوشمند، و LangGraph، پاسخ‌های دقیق و متناسب با سطح کودکان ارائه می‌دهد.
-
 **Farsi Elementary Assistant** is an intelligent educational system designed to help Iranian elementary school students (specifically 2nd grade) with their Farsi language lessons. Using RAG (Retrieval-Augmented Generation), intelligent semantic search, and LangGraph agent architecture, it provides accurate, age-appropriate responses.
 
 ### 🎯 Target Audience
