@@ -51,50 +51,13 @@
 
 ## 🏗️ معماری
 
-```
-                    __start__
-                        │
-                        ▼
-                ┌───────────────┐
-                │  Router Node  │ ◄── تصمیم: جستجو یا رد شدن
-                └───────┬───────┘
-                        │
-            ┌───────────┴───────────┐
-            │                       │
-         search                 skip_search
-            │                       │
-            ▼                       ▼
-    ┌──────────────┐        ┌──────────────┐
-    │ Mandatory    │        │   Chatbot    │
-    │   Search     │        │    (LLM)     │
-    │   (RAG)      │        └──────┬───────┘
-    └──────┬───────┘               │
-           │                        │
-           └────────┬───────────────┘
-                    ▼
-            ┌──────────────┐
-            │   Chatbot    │
-            │    (LLM)     │
-            └──────┬───────┘
-                   │
-            ┌──────┴──────┐
-            │             │
-   ┌────────▼──┐     ┌────▼─────┐
-   │   Tools   │     │   END    │
-   └────┬──────┘     └──────────┘
-        │
-        └──────┐
-               ▼
-       ┌──────────────┐
-       │   Chatbot    │
-       │    (LLM)     │
-       └──────────────┘
-```
+<img width="308" height="372" alt="image" src="https://github.com/user-attachments/assets/4ab8c9b1-e548-499e-ab4d-3b3796ec4af4" />
+
 
 **اجزای کلیدی**:
 - **Router**: تحلیل کوئری برای تعیین نیاز به جستجوی برداری
 - **ابزار جستجوی معنایی**: کوئری به Weaviate با فیلترینگ هوشمند
-- **LLM Agent**: GPT-4o-mini (یا سازگار) با قابلیت فراخوانی ابزار
+- **LLM Agent**:(یا سازگار) با قابلیت فراخوانی ابزار gpt-4o-mini
 - **حافظه**: Checkpointer SQLite برای ماندگاری مکالمه
 
 ---
@@ -103,13 +66,13 @@
 
 ### الزامی
 - **Python**: نسخه ۳.۱۰ یا بالاتر
-- **Docker**: برای اجرای Weaviate به صورت محلی
-- **Ollama**: برای embeddings محلی (مدل BGE-M3)
+- **Docker**: به صورت محلی Weaviate برای اجرای  
+- **Ollama**: (BGE-M3 مدل) محلی embeddings برای
 - **کلید API مدل زبانی**: API سازگار با OpenAI (OpenAI، OpenRouter، Groq و غیره)
 
 ### اختیاری
-- **Weaviate Cloud**: جایگزین راه‌اندازی Docker محلی
-- **OpenAI Embeddings**: جایگزین embeddings محلی Ollama
+- **Weaviate Cloud**: محلی Docker جایگزین راه‌اندازی 
+- **OpenAI Embeddings**: Ollama محلی embeddings جایگزین 
 
 ---
 
@@ -154,7 +117,7 @@ METIS_BASE_URL=https://api.openai.com/v1
 # OLLAMA_BASE_URL=http://localhost:11434/
 # OLLAMA_API_KEY=ollama
 
-# Ollama برای Embeddings (در صورت استفاده از embeddings محلی)
+# Ollama (محلی embeddings در صورت استفاده از)
 OLLAMA_BASE_URL=http://localhost:11434/
 OLLAMA_API_KEY=ollama
 ```
@@ -165,10 +128,10 @@ OLLAMA_API_KEY=ollama
 
 #### گزینه الف: Docker محلی (توصیه شده برای توسعه)
 ```bash
-# شروع کانتینر Weaviate
+#Weaviate شروع کانتینر 
 docker-compose up -d
 
-# تأیید اجرا
+# E تأیید اجرا
 curl http://localhost:8080/v1/meta
 ```
 
@@ -178,13 +141,13 @@ curl http://localhost:8080/v1/meta
 ### ۵️⃣ راه‌اندازی Ollama (برای Embeddings محلی)
 
 ```bash
-# نصب Ollama (اگر قبلاً نصب نشده)
-# مراجعه کنید به: https://ollama.ai/download
+# E نصب Ollama (اگر قبلاً نصب نشده)
+# E مراجعه کنید به: https://ollama.ai/download
 
-# دانلود مدل BGE-M3
+# E دانلود مدل BGE-M3
 ollama pull bge-m3:latest
 
-# تأیید
+#E تأیید
 ollama list
 ```
 
@@ -192,10 +155,10 @@ ollama list
 
 ### ۶️⃣ وارد کردن داده‌های درس
 ```bash
-# این دستور:
+#E این دستور:
 # - Collection Weaviate را ایجاد می‌کند
 # - lesson_01.txt و lesson_02.txt را Chunk و Import می‌کند
-# - روابط معنایی بین چانک‌ها را می‌سازد
+#E - روابط معنایی بین چانک‌ها را می‌سازد
 
 python setup_weaviate.py
 ```
@@ -235,7 +198,7 @@ python main_agent.py
 
 #### OpenAI مستقیم
 ```python
-# در main_agent.py، تغییر دهید:
+# main_agent.py تغییر دهید:
 llm = ChatOpenAI(
     base_url="https://api.openai.com/v1",
     api_key=os.getenv("OPENAI_API_KEY"),
@@ -273,7 +236,7 @@ llm = ChatOpenAI(
 
 #### Ollama محلی (پیش‌فرض)
 ```python
-# در setup_weaviate.py
+#setup_weaviate.py در 
 vectorizer_config=Configure.Vectorizer.text2vec_ollama(
     api_endpoint="http://host.docker.internal:11434",
     model="bge-m3:latest"
@@ -285,7 +248,7 @@ vectorizer_config=Configure.Vectorizer.text2vec_ollama(
 vectorizer_config=Configure.Vectorizer.text2vec_openai(
     model="text-embedding-3-small"
 )
-# فراموش نکنید OPENAI_API_KEY را در محیط تنظیم کنید
+#OPENAI_API_KEY را در محیط تنظیم کنید
 ```
 
 ---
@@ -356,25 +319,14 @@ python setup_weaviate.py
 
 ## 🖼️ تصاویر
 
-> 📸 **TODO**: تصاویر را اینجا اضافه کنید
-
 ### تصاویر پیشنهادی:
-1. **رابط چت اصلی** (`screenshots/chat-interface.png`)
-   - رابط کاربری Gradio با یک نمونه مکالمه را نشان دهید
-   
-2. **مثال نتایج جستجو** (`screenshots/search-results.png`)
-   - خروجی ترمینال که فرآیند جستجوی ۳ مرحله‌ای را نشان می‌دهد
-   
-3. **داشبورد Weaviate** (`screenshots/weaviate-dashboard.png`)
-   - اختیاری: رابط کاربری Weaviate با داده‌های وارد شده را نشان دهید
+1. **رابط چت اصلی** 
+        <img width="1908" height="867" alt="image" src="https://github.com/user-attachments/assets/8df7fac1-0350-40e1-83a4-32f8c8f7db9f" />
 
-4. **تصویرسازی گراف Agent** (`screenshots/agent-graph.png`)
-   - ساختار LangGraph (به صورت خودکار در کد تولید می‌شود)
+2. **مثال نتایج جستجو**
+        <img width="921" height="897" alt="image" src="https://github.com/user-attachments/assets/d6dba6b8-6409-4b55-8243-61d7df97ef9e" />
 
-**نحوه افزودن**:
-```markdown
-![رابط چت](screenshots/chat-interface.png)
-*رابط چت اصلی Gradio با کوئری‌های نمونه*
+
 ```
 
 ---
@@ -476,17 +428,17 @@ tools = [tool_weaviate, tool_custom]
 
 ## 🙏 قدردانی‌ها
 
-- **LangChain/LangGraph**: برای فریم‌ورک agent
+- **LangChain/LangGraph**: agent برای فریم‌ورک 
 - **Weaviate**: برای قابلیت‌های پایگاه داده برداری
-- **BGE-M3**: برای embeddings چندزبانه
+- **BGE-M3**: چندزبانه embeddings برای
 - **Gradio**: برای نمونه‌سازی سریع رابط کاربری
 
 ---
 
 ## 📧 تماس و پشتیبانی
 
-- **مشکلات**: [GitHub Issues](https://github.com/yourusername/farsi-elementary-assistant/issues)
-- **بحث‌ها**: [GitHub Discussions](https://github.com/yourusername/farsi-elementary-assistant/discussions)
+- **مشکلات**: [GitHub Issues](https://github.com/Hosseinkhaleghinia/farsi-elementary-assistant/issues)
+- **بحث‌ها**: [GitHub Discussions](https://github.com/Hosseinkhaleghinia/farsi-elementary-assistant/discussions)
 
 ---
 
