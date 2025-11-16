@@ -3,6 +3,9 @@ lessons/*
 !lessons/lesson_01.txt
 !lessons/lesson_02.txt
 
+#ChromaDb
+chroma_langchain_db/*
+
 # Environment
 .env
 
